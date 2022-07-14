@@ -1,0 +1,59 @@
+﻿<Window x:Class="TestWPF.TreeviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestWPF"
+        mc:Ignorable="d"
+        Title="TreeviewWindow" Height="450" Width="800">
+    <Window.Resources>
+    
+
+        <HierarchicalDataTemplate x:Key="SingleListView" ItemsSource="{Binding Pairs}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Key}"/>
+                <TextBox Text="{Binding Value}">
+                    <TextBox.Style>
+                        <Style TargetType="TextBox">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Value}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+            </StackPanel>
+        </HierarchicalDataTemplate>
+
+        <DataTemplate x:Key="InnerTreeView">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Key}"/>
+                <ItemsControl ItemsSource="{Binding ArrayPairs}" BorderBrush="Transparent">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TreeView BorderBrush="Transparent" ItemsSource="{Binding}" ItemTemplateSelector="{DynamicResource templateSelector}"/>
+                        </DataTemplate>
+
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="collectionView">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Key}"/>
+                <ComboBox ItemsSource="{Binding Collection}"/>
+            </StackPanel>
+        </DataTemplate>
+
+        <local:TemplateSelector x:Key="templateSelector"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.DataContext>
+            <local:ViewModel/>
+        </Grid.DataContext>
+        <TreeView ItemsSource="{Binding Source}" BorderBrush="Transparent" ItemTemplateSelector="{StaticResource templateSelector}">
+        </TreeView>
+    </Grid>
+</Window>

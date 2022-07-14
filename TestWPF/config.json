@@ -1,0 +1,32 @@
+{
+  "key1": "value1",
+  "key2": "value2",
+  "key3": {
+    "Objkey1": "value1"
+  },
+  "key4": [
+    {
+      "Arrakey1": {
+        "ArrObjkey1": "value1"
+      },
+      "Arrkey2": "value7"
+    },
+    {
+      "Arrakey1": {
+        "ArrObjkey1": "value1",
+        "ArrArr": [
+          {
+            "Arrakey1": {
+              "ArrObjkey1": "value1"
+            },
+            "Arrkey2": "value7",
+            "ArrCom": ["T", "K"]
+          }
+        ]
+      },
+      "ArrKey2": "value7"
+    }
+  ],
+  "key5": [ "test1", "test2" ]
+
+}
